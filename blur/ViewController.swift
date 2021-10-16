@@ -12,20 +12,26 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let visualEffectView = VisualEffectView(frame: self.view.bounds)
+       let bgViewFrame = CGRect(x: 20, y: 20, width: self.view.bounds.width - 40, height: self.view.bounds.height - 40)
+        
+        let bgView = UIView(frame: bgViewFrame)
+        
+        self.view.addSubview(bgView)
+        let visualEffectView = VisualEffectView(frame: CGRect(x: 0, y: 0, width:  self.view.bounds.width - 40, height: self.view.bounds.height - 40))
 
         // Configure the view with tint color, blur radius, etc
-        visualEffectView.colorTint = .black
-        visualEffectView.colorTintAlpha = 0.1
-        visualEffectView.blurRadius = 5
+        visualEffectView.colorTint = .gray
+        visualEffectView.colorTintAlpha = 0.4
+        visualEffectView.blurRadius = 15
         visualEffectView.scale = 1.0
+        visualEffectView.layer.masksToBounds = true
+        visualEffectView.layer.cornerRadius = 8
 
-        self.view.addSubview(visualEffectView)
-        
+        bgView.insertSubview(visualEffectView, at: 0)
         let vibrancyEffect = UIVibrancyEffect(blurEffect: visualEffectView.effect as! UIBlurEffect)
 
         let innerVisualEffectView = UIVisualEffectView(effect: vibrancyEffect)
-        innerVisualEffectView.frame = self.view.frame
+        innerVisualEffectView.frame = CGRect(x: 0, y: 0, width:  self.view.bounds.width - 40, height: self.view.bounds.height - 40)
 
         // 3
         visualEffectView.contentView.addSubview(innerVisualEffectView)
@@ -34,7 +40,7 @@ class ViewController: UIViewController {
         let label = UILabel()
         label.text = "Zedd"
         label.textAlignment = .center
-        label.frame = self.view.frame
+        label.frame = CGRect(x: 0, y: 0, width:  self.view.bounds.width - 40, height: self.view.bounds.height - 40)
         innerVisualEffectView.contentView.addSubview(label)
     }
 
